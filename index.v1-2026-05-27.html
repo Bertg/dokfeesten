@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dokfeesten 2026 — Lekker aan het water</title>
+  <meta name="description" content="Dokfeesten — een jaarlijks volksfeest aan De Oude Dokken in Gent. Zaterdag 29 augustus 2026, van 10u tot 02u." />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#F6F1E6',
+            ink:   '#0B1A2A',
+            dok:   { red: '#E8302A', blue: '#1F2FD3' },
+          },
+          fontFamily: {
+            display: ['Anton', 'Impact', 'sans-serif'],
+            sans:    ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body { background-color: #F6F1E6; }
+    .display { font-family: 'Anton', Impact, sans-serif; letter-spacing: 0.02em; }
+    .underline-sketch {
+      background-image: linear-gradient(transparent 70%, #E8302A 70%, #E8302A 92%, transparent 92%);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
+    }
+  </style>
+</head>
+<body class="font-sans text-ink antialiased">
+
+  <!-- NAV -->
+  <header class="sticky top-0 z-50 bg-cream/95 backdrop-blur border-b-2 border-ink">
+    <nav class="max-w-6xl mx-auto flex items-center justify-between px-5 py-4">
+      <a href="#top" class="block leading-none" aria-label="Dokfeesten">
+        <img src="available_assets/logo.svg" alt="Dokfeesten" class="h-7 md:h-8 w-auto" />
+      </a>
+      <ul class="hidden md:flex gap-6 text-sm font-bold uppercase tracking-wide">
+        <li><a href="#info" class="hover:text-dok-red">Info</a></li>
+        <li><a href="#programma" class="hover:text-dok-red">Programma</a></li>
+        <li><a href="#plattegrond" class="hover:text-dok-red">Plattegrond</a></li>
+        <li><a href="#praktisch" class="hover:text-dok-red">Praktisch</a></li>
+        <li><a href="#vrijwilligers" class="hover:text-dok-red">Vrijwilligers</a></li>
+        <li><a href="#contact" class="hover:text-dok-red">Contact</a></li>
+      </ul>
+      <a href="#programma" class="hidden md:inline-block bg-dok-blue text-white text-sm font-bold uppercase px-4 py-2 rounded-full hover:bg-dok-red transition">
+        Programma
+      </a>
+    </nav>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="relative overflow-hidden">
+    <img src="available_assets/header.JPG" alt="Dokfeesten — zaterdag 29 augustus — lekker aan het water" class="w-full h-auto block" />
+  </section>
+
+  <!-- INTRO -->
+  <section id="info" class="py-20 px-5">
+    <div class="max-w-4xl mx-auto text-center">
+      <p class="display text-dok-blue text-xl md:text-2xl mb-4">Zaterdag 29 augustus 2026 · 10u — 02u</p>
+      <h1 class="display text-5xl md:text-7xl leading-[0.95] mb-8">
+        Een jaarlijks volksfeest <br/>aan <span class="text-dok-red">De Oude Dokken</span>.
+      </h1>
+      <p class="text-lg md:text-xl max-w-2xl mx-auto leading-relaxed">
+        Eén dag, één dok, duizend goesting. Dokfeesten brengt buren, vrienden en
+        nieuwsgierigen samen aan de Gentse kade: van rommelmarkt en kinderdorp
+        tot live muziek, lekker eten en dansen tot in de vroege uurtjes.
+        Voor klein en groot, helemaal gratis.
+      </p>
+      <div class="mt-10 flex flex-wrap gap-3 justify-center">
+        <a href="#programma" class="bg-dok-red text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:bg-dok-blue transition">Ontdek het programma</a>
+        <a href="#praktisch" class="border-2 border-ink font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:bg-ink hover:text-cream transition">Praktisch</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE PILLARS -->
+  <section class="px-5 pb-20">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-6">
+      <!-- Beleving -->
+      <article class="bg-white border-2 border-ink rounded-2xl p-8 relative overflow-hidden">
+        <img src="available_assets/png elementen/Boot.png" alt="" class="absolute -top-6 -right-6 w-40 opacity-90 pointer-events-none" />
+        <h2 class="display text-4xl text-dok-blue mb-4">Beleving</h2>
+        <p class="leading-relaxed">
+          Van 9u tot 22u barst de kade van activiteiten: rommelmarkt,
+          kinderdorp, uitdagingen zoals <em>The Beast</em>, Go-Cart Race en
+          wellness aan het water. Voor alle leeftijden.
+        </p>
+      </article>
+
+      <!-- Muziek -->
+      <article class="bg-white border-2 border-ink rounded-2xl p-8 relative overflow-hidden">
+        <img src="available_assets/png elementen/Ketting Solo.png" alt="" class="absolute -top-6 -right-6 w-40 opacity-90 pointer-events-none" />
+        <h2 class="display text-4xl text-dok-red mb-4">Muziek</h2>
+        <p class="leading-relaxed">
+          Op het waterterras presenteert De Centrale singer-songwriters,
+          fanfare, funk en pop. De hele dag door, gratis op je gemak.
+        </p>
+      </article>
+
+      <!-- Feest -->
+      <article class="bg-white border-2 border-ink rounded-2xl p-8 relative overflow-hidden">
+        <img src="available_assets/png elementen/dokfeestenlekker.png" alt="" class="absolute -bottom-2 -right-4 w-44 opacity-90 pointer-events-none" />
+        <h2 class="display text-4xl text-dok-blue mb-4">Feest</h2>
+        <p class="leading-relaxed">
+          Een energiek dansspektakel met live acts en DJ-sets tot 02u.
+          Voor wie graag de voetjes losgooit op een zomerse zaterdagavond.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <!-- PROGRAMMA -->
+  <section id="programma" class="bg-dok-blue text-cream py-20 px-5">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="display text-5xl md:text-6xl mb-2">Programma</h2>
+      <p class="mb-12 max-w-2xl text-cream/80">
+        Vijf locaties, één feest. Hieronder een overzicht — exacte uren en
+        line-up worden tegen de zomer aangevuld.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+        <!-- De Markten -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">De Markten · 09u — 18u</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Rommelmarkt — 200+ standjes</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Koffie- en cavabar “De Foef”</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Streetfood &amp; bars langs het dok</span></li>
+          </ul>
+        </div>
+
+        <!-- Het Festival -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">Het Festival</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Go-Cart Race (12+)</span><span class="text-cream/70">12u — 18u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Jungle Skills — kids (3+)</span><span class="text-cream/70">10u — 18u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>TIGERHORSE live</span><span class="text-cream/70">20u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Tommy Sunshine &amp; The Naked Zorro’s</span><span class="text-cream/70">21u — 02u</span></li>
+          </ul>
+        </div>
+
+        <!-- De Pier -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">De Pier · 10u — 18u</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2"><span>Free running parcours “The Beast”</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Panna voetbalkooi</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Levende tafelvoetbal</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Artistieke interventies &amp; live radio</span></li>
+          </ul>
+        </div>
+
+        <!-- In 't Park -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">In ’t Park · wellness</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2"><span>Breathwork</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Yoga flow</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Pilates</span></li>
+            <li class="border-b border-cream/30 py-2"><span>Aerobics aan het water</span></li>
+          </ul>
+        </div>
+
+        <!-- De Kade -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">De Kade — De Centrale</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Lizzy Baker — roots pop &amp; jazz</span><span class="text-cream/70">11u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Funkateers</span><span class="text-cream/70">13u30</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>The Bioneers</span><span class="text-cream/70">15u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Berkay Bekci en Vrienden</span><span class="text-cream/70">17u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>DJ Garreth McMullan</span><span class="text-cream/70">doorlopend</span></li>
+          </ul>
+        </div>
+
+        <!-- Take In -->
+        <div>
+          <h3 class="display text-3xl text-white mb-3">Take In — Singer-Songwriters</h3>
+          <ul class="space-y-2">
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Pastiche (duo)</span><span class="text-cream/70">13u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Jolien &amp; Wouter</span><span class="text-cream/70">14u30</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>Pascal Quintens</span><span class="text-cream/70">16u</span></li>
+            <li class="border-b border-cream/30 py-2 flex justify-between"><span>ONS</span><span class="text-cream/70">17u30</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VRIJWILLIGERS -->
+  <section id="vrijwilligers" class="py-20 px-5">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <h2 class="display text-5xl md:text-6xl mb-6">
+          Wordt het ook <span class="underline-sketch">jouw feest</span>?
+        </h2>
+        <p class="text-lg leading-relaxed mb-6">
+          Dokfeesten draait op vrijwilligers. Help mee met communicatie,
+          opbouw en afbraak, afvalwerking of geef een handje aan de bar.
+          Je hoeft geen ervaring te hebben — goesting volstaat.
+        </p>
+        <a href="mailto:info@dokfeesten.be?subject=Ik%20help%20mee" class="inline-block bg-dok-red text-white font-bold uppercase tracking-wide px-6 py-3 rounded-full hover:bg-dok-blue transition">
+          Ik help mee
+        </a>
+      </div>
+      <div class="flex justify-center">
+        <img src="available_assets/png elementen/kraan met vloer.png" alt="Havenkraan illustratie" class="max-h-80" />
+      </div>
+    </div>
+  </section>
+
+  <!-- PRAKTISCH -->
+  <section id="praktisch" class="bg-white border-y-2 border-ink py-20 px-5">
+    <div class="max-w-6xl mx-auto">
+      <h2 class="display text-5xl md:text-6xl mb-12 text-center">Praktisch</h2>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="display text-3xl text-dok-red mb-2">Wanneer</div>
+          <p>Zaterdag 29 augustus 2026<br/>van 10u tot 02u</p>
+        </div>
+        <div class="text-center">
+          <div class="display text-3xl text-dok-red mb-2">Waar</div>
+          <p>De Oude Dokken, Gent<br/>Houtdok &amp; Handelsdok</p>
+        </div>
+        <div class="text-center">
+          <div class="display text-3xl text-dok-red mb-2">Inkom</div>
+          <p>Gratis<br/>Voor alle leeftijden</p>
+        </div>
+      </div>
+
+      <hr class="my-12 border-ink/20" />
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div>
+          <div class="display text-2xl text-dok-blue mb-2">Met de fiets</div>
+          <p class="text-sm leading-relaxed">Bewaakte fietsparking voorzien door de Gentse Fietsambassade. De kortste route naar het feest.</p>
+        </div>
+        <div>
+          <div class="display text-2xl text-dok-blue mb-2">Duurzaam</div>
+          <p class="text-sm leading-relaxed">Lokale eten- en drankenpartners, herbruikbare bekers en een T-shirtinzameling i.s.m. vzw Ateljee.</p>
+        </div>
+        <div>
+          <div class="display text-2xl text-dok-blue mb-2">Toegankelijk</div>
+          <p class="text-sm leading-relaxed">De volledige site is rolstoeltoegankelijk. Vragen? Stuur ons gerust een mailtje.</p>
+        </div>
+      </div>
+
+      <div id="plattegrond" class="mt-16 scroll-mt-24">
+        <h3 class="display text-4xl md:text-5xl mb-2">Plattegrond</h3>
+        <p class="text-ink/70 mb-6 max-w-xl">Vind je weg langs de dokken. De kaart van 2026 volgt — dit is de versie van vorig jaar als leidraad.</p>
+        <figure class="border-2 border-ink rounded-2xl overflow-hidden bg-white">
+          <img src="available_assets/kaart-2025.jpg" alt="Plattegrond Dokfeesten — De Pier, Het Festival, In ’t Park, De Markten, De Kade, De Foef, Take In" class="w-full h-auto block" />
+          <figcaption class="text-xs text-ink/60 px-4 py-2 border-t border-ink/10">Plattegrond editie 2025 — onder voorbehoud voor 2026.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT / FOOTER -->
+  <footer id="contact" class="bg-ink text-cream py-16 px-5">
+    <div class="max-w-6xl mx-auto grid md:grid-cols-3 gap-10">
+      <div>
+        <img src="available_assets/logo.svg" alt="Dokfeesten" class="h-8 w-auto mb-4 brightness-0 invert" />
+        <p class="text-sm text-cream/80">Een jaarlijks volksfeest aan De Oude Dokken, Gent. Lekker aan het water sinds altijd.</p>
+      </div>
+      <div>
+        <h3 class="display text-xl mb-3">Contact</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="mailto:info@dokfeesten.be" class="hover:text-dok-red">info@dokfeesten.be</a></li>
+          <li><a href="https://www.instagram.com/dokfeesten" class="hover:text-dok-red">Instagram · @dokfeesten</a></li>
+          <li><a href="https://www.facebook.com/dokfeesten" class="hover:text-dok-red">Facebook · /dokfeesten</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="display text-xl mb-3">Meer info</h3>
+        <ul class="space-y-1 text-sm">
+          <li><a href="#programma" class="hover:text-dok-red">Programma</a></li>
+          <li><a href="#vrijwilligers" class="hover:text-dok-red">Vrijwilligers</a></li>
+          <li><a href="#praktisch" class="hover:text-dok-red">Praktisch</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="max-w-6xl mx-auto mt-12 pt-6 border-t border-cream/20 text-xs text-cream/60 flex flex-wrap justify-between gap-2">
+      <span>© Dokfeesten vzw — Gent</span>
+      <span>Cookies · Privacy</span>
+    </div>
+  </footer>
+
+</body>
+</html>
