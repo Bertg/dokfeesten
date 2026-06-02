@@ -84,6 +84,11 @@
     <img src="available_assets/png elementen/dokfeesten-name.png" alt="Dokfeesten" class="block" />
   </div>
 
+  <!-- Sticky intro sticker — also OUTSIDE the intro to avoid overflow-hidden clipping.
+       JS animates it from the placeholder's position into the logo's bottom-left. -->
+  <span id="intro-sticker" class="sticker fixed top-0 left-0 z-50 pointer-events-none"
+        style="visibility: hidden;" aria-hidden="true">29 augustus 2026 · 9u — 02u</span>
+
   <!-- HERO — collage rebuilt from individual assets, races off on scroll -->
   <section id="top" class="relative w-full overflow-hidden bg-white">
     <div class="relative w-full aspect-[1600/837] max-h-[88vh]">
@@ -144,7 +149,7 @@
          class="absolute left-[3%] top-[8%] w-24 md:w-44 pointer-events-none select-none opacity-90" />
 
     <div class="max-w-4xl mx-auto text-center relative">
-      <span class="sticker">29 augustus 2026 · 9u — 02u</span>
+      <span id="intro-sticker-placeholder" class="sticker invisible" aria-hidden="true">29 augustus 2026 · 9u — 02u</span>
       <h1 class="display text-5xl md:text-8xl leading-[0.92] mt-6 mb-8 text-dok-blue">
         Een jaarlijks <span class="text-dok-red">volksfeest</span> <br/>
         aan <span class="text-dok-blue">De Oude Dokken</span>.
@@ -484,7 +489,6 @@
       { name: "Dok 13 Drukkerij",        tier: "hoofd",  logo: "sponsors/dok-13.png" },
       { name: "Delhaize Dok Noord",      tier: "hoofd",  logo: "sponsors/delhaize.png" },
       { name: "Vastgoed Ongenaet",       tier: "hoofd",  logo: "sponsors/vastgoed-ongenaet.png" },
-
       { name: "O'Leary's",               tier: "vriend", logo: "sponsors/olearys.png" },
       { name: "E-Karting",               tier: "vriend", logo: "sponsors/e-kart.png" },
       { name: "Ateljee",                 tier: "vriend", logo: "sponsors/ateljee.svg" },
@@ -632,10 +636,13 @@
 
       const wrapImg = wrap.querySelector('img');
       const divider = document.querySelector('.divider');
+      const sticker   = document.getElementById('intro-sticker');
+      const stickerPH = document.getElementById('intro-sticker-placeholder');
       let initial = null;
       let dist = 200;
       let targetScale = 0.5;
       let targetTopPad = 10;
+      let stickerData = null;
 
       // Logo height inside the sticky header bar, relative to bar height.
       const TARGET_HEIGHT_FRAC = 0.6;
@@ -664,6 +671,32 @@
           ? divider.getBoundingClientRect().top + window.scrollY
           : window.innerHeight;
         dist = Math.max(120, dividerTopOnPage - headerH);
+
+        // Intro sticker morphs into the bottom-left of the (final) logo position.
+        if (sticker && stickerPH) {
+          const sr = stickerPH.getBoundingClientRect();
+          if (sr.width > 0) {
+            const sScale  = 0.6;
+            const targetW = sr.width  * sScale;
+            const targetH = sr.height * sScale;
+            const logoW   = initial.width  * targetScale;
+            const logoH   = initial.height * targetScale;
+            const logoRight  = (window.innerWidth + logoW) / 2;
+            const logoBottom = targetTopPad + logoH;
+            stickerData = {
+              pageTop:  sr.top  + window.scrollY,
+              pageLeft: sr.left + window.scrollX,
+              width:    sr.width,
+              height:   sr.height,
+              targetCx: logoRight - targetW / 2 + 5,
+              targetCy: logoBottom + 3,
+              scale:    sScale,
+              startScroll: sr.top + window.scrollY - headerH * 3,
+              endScroll:   sr.top + window.scrollY - headerH * 1,
+            };
+            sticker.style.visibility = 'visible';
+          }
+        }
 
         return true;
       };
@@ -694,6 +727,31 @@
         const visualTop   = initial.pageTop * (1 - progress) + targetTopPad * progress;
         const scale       = 1 - (1 - targetScale) * progress;
         wrap.style.transform = `translate3d(${visualLeft.toFixed(1)}px, ${visualTop.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
+
+        // Sticker morph — fixed-positioned visible sticker, animates toward logo bottom-left.
+        if (sticker && stickerData) {
+          const sd = stickerData;
+          const sp = Math.min(1, Math.max(0,
+            (scrollY - sd.startScroll) / (sd.endScroll - sd.startScroll)
+          ));
+          const naturalCx = sd.pageLeft + sd.width  / 2;
+          const naturalCy = sd.pageTop  + sd.height / 2 - scrollY;
+          const cx   = naturalCx + sp * (sd.targetCx - naturalCx);
+          const cy   = naturalCy + sp * (sd.targetCy - naturalCy);
+          // Fixed sticker is at top:0 left:0, so its natural center is at (w/2, h/2).
+          // translate places the center at (cx, cy); origin defaults to center.
+          const tx   = cx - sd.width  / 2;
+          const ty   = cy - sd.height / 2;
+          const sScl = 1 - sp * (1 - sd.scale);
+          const sRot = -3 - sp * 2;
+          sticker.style.transform =
+            `translate3d(${tx.toFixed(1)}px, ${ty.toFixed(1)}px, 0) scale(${sScl.toFixed(3)}) rotate(${sRot.toFixed(2)}deg)`;
+          // Bleed from dok-red (#FE2C09) to dok-blue (#1F2FD3) across the morph.
+          const cr = Math.round(254 + sp * (31  - 254));
+          const cg = Math.round(44  + sp * (47  - 44));
+          const cb = Math.round(9   + sp * (211 - 9));
+          sticker.style.backgroundColor = `rgb(${cr}, ${cg}, ${cb})`;
+        }
 
         ticking = false;
       };
