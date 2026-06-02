@@ -85,9 +85,9 @@
   </div>
 
   <!-- Sticky intro sticker — also OUTSIDE the intro to avoid overflow-hidden clipping.
-       JS animates it from the placeholder's position into the logo's bottom-left. -->
+       JS animates it into the bottom-right corner of the logo; the time fades away. -->
   <span id="intro-sticker" class="sticker fixed top-0 left-0 z-50 pointer-events-none"
-        style="visibility: hidden;" aria-hidden="true">29 augustus 2026 · 9u — 02u</span>
+        style="visibility: hidden;" aria-hidden="true">29 augustus 2026<span class="sticker-time"> · 9u — 02u</span></span>
 
   <!-- HERO — collage rebuilt from individual assets, races off on scroll -->
   <section id="top" class="relative w-full overflow-hidden bg-white">
@@ -149,7 +149,7 @@
          class="absolute left-[3%] top-[8%] w-24 md:w-44 pointer-events-none select-none opacity-90" />
 
     <div class="max-w-4xl mx-auto text-center relative">
-      <span id="intro-sticker-placeholder" class="sticker invisible" aria-hidden="true">29 augustus 2026 · 9u — 02u</span>
+      <span id="intro-sticker-placeholder" class="sticker invisible" aria-hidden="true">29 augustus 2026<span class="sticker-time"> · 9u — 02u</span></span>
       <h1 class="display text-5xl md:text-8xl leading-[0.92] mt-6 mb-8 text-dok-blue">
         Een jaarlijks <span class="text-dok-red">volksfeest</span> <br/>
         aan <span class="text-dok-blue">De Oude Dokken</span>.
@@ -639,8 +639,10 @@
 
       const wrapImg = wrap.querySelector('img');
       const divider = document.querySelector('.divider');
-      const sticker   = document.getElementById('intro-sticker');
-      const stickerPH = document.getElementById('intro-sticker-placeholder');
+      const sticker     = document.getElementById('intro-sticker');
+      const stickerPH   = document.getElementById('intro-sticker-placeholder');
+      const stickerTime = sticker ? sticker.querySelector('.sticker-time') : null;
+      const stickerPHTime = stickerPH ? stickerPH.querySelector('.sticker-time') : null;
       let initial = null;
       let dist = 200;
       let targetScale = 0.5;
@@ -675,27 +677,36 @@
           : window.innerHeight;
         dist = Math.max(120, dividerTopOnPage - headerH);
 
-        // Intro sticker morphs into the bottom-left of the (final) logo position.
+        // Intro sticker morphs into the bottom-right corner of the (final) logo position;
+        // the time portion collapses to zero width as it goes.
         if (sticker && stickerPH) {
           const sr = stickerPH.getBoundingClientRect();
+          // Measure date-only width by briefly collapsing the time span on the placeholder.
+          let dateOnlyW = sr.width;
+          if (stickerPHTime) {
+            const prevFs = stickerPHTime.style.fontSize;
+            stickerPHTime.style.fontSize = '0';
+            dateOnlyW = stickerPH.getBoundingClientRect().width;
+            stickerPHTime.style.fontSize = prevFs;
+          }
           if (sr.width > 0) {
             const sScale  = 0.6;
-            const targetW = sr.width  * sScale;
-            const targetH = sr.height * sScale;
+            const targetW = dateOnlyW * sScale;
             const logoW   = initial.width  * targetScale;
             const logoH   = initial.height * targetScale;
             const logoRight  = (window.innerWidth + logoW) / 2;
             const logoBottom = targetTopPad + logoH;
             stickerData = {
-              pageTop:  sr.top  + window.scrollY,
-              pageLeft: sr.left + window.scrollX,
-              width:    sr.width,
-              height:   sr.height,
-              targetCx: logoRight - targetW / 2 + 5,
-              targetCy: logoBottom + 3,
-              scale:    sScale,
-              startScroll: sr.top + window.scrollY - headerH * 3,
-              endScroll:   sr.top + window.scrollY - headerH * 1,
+              pageTop:       sr.top  + window.scrollY,
+              pageLeft:      sr.left + window.scrollX,
+              width:         sr.width,
+              dateOnlyWidth: dateOnlyW,
+              height:        sr.height,
+              targetCx:      logoRight - targetW / 2 + 5,
+              targetCy:      logoBottom + 3 + (window.innerWidth < 768 ? 5 : 0),
+              scale:         sScale,
+              startScroll:   sr.top + window.scrollY - headerH * 3,
+              endScroll:     sr.top + window.scrollY - headerH * 1,
             };
             sticker.style.visibility = 'visible';
           }
@@ -731,19 +742,20 @@
         const scale       = 1 - (1 - targetScale) * progress;
         wrap.style.transform = `translate3d(${visualLeft.toFixed(1)}px, ${visualTop.toFixed(1)}px, 0) scale(${scale.toFixed(3)})`;
 
-        // Sticker morph — fixed-positioned visible sticker, animates toward logo bottom-left.
+        // Sticker morph — fixed visible sticker, animates toward logo bottom-right.
+        // Effective natural width shrinks because the time text fades to 0 as well.
         if (sticker && stickerData) {
           const sd = stickerData;
           const sp = Math.min(1, Math.max(0,
             (scrollY - sd.startScroll) / (sd.endScroll - sd.startScroll)
           ));
+          const effW = sd.width - sp * (sd.width - sd.dateOnlyWidth);
           const naturalCx = sd.pageLeft + sd.width  / 2;
           const naturalCy = sd.pageTop  + sd.height / 2 - scrollY;
           const cx   = naturalCx + sp * (sd.targetCx - naturalCx);
           const cy   = naturalCy + sp * (sd.targetCy - naturalCy);
-          // Fixed sticker is at top:0 left:0, so its natural center is at (w/2, h/2).
-          // translate places the center at (cx, cy); origin defaults to center.
-          const tx   = cx - sd.width  / 2;
+          // Visible sticker is fixed at top:0 left:0; current natural center sits at effW/2.
+          const tx   = cx - effW / 2;
           const ty   = cy - sd.height / 2;
           const sScl = 1 - sp * (1 - sd.scale);
           const sRot = -3 - sp * 2;
@@ -754,6 +766,10 @@
           const cg = Math.round(44  + sp * (47  - 44));
           const cb = Math.round(9   + sp * (211 - 9));
           sticker.style.backgroundColor = `rgb(${cr}, ${cg}, ${cb})`;
+          // Collapse the time portion (" · 9u — 02u") to zero width.
+          if (stickerTime) {
+            stickerTime.style.fontSize = `${(1 - sp).toFixed(3)}em`;
+          }
         }
 
         ticking = false;
